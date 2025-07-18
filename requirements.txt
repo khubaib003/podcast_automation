@@ -1,0 +1,12 @@
+# flask
+numpy
+scipy
+moviepy
+Pillow
+proglog
+opencv-python-headless
+numpy
+scipy
+pillow
+flask
+playwright
