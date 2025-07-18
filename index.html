@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>🎙️ AI Podcast Generator</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #7f5af0, #2cb67d);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            color: #333;
+        }
+        .container {
+            background: #fff;
+            padding: 30px;
+            border-radius: 20px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+        }
+        h1 {
+            margin-bottom: 20px;
+            font-size: 28px;
+            color: #111;
+        }
+        input {
+            width: 100%;
+            padding: 15px;
+            margin-bottom: 15px;
+            font-size: 16px;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            outline: none;
+            box-sizing: border-box;
+        }
+        input:focus {
+            border-color: #7f5af0;
+        }
+        button {
+            width: 100%;
+            padding: 15px;
+            background-color: #7f5af0;
+            color: white;
+            font-size: 18px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background-color: #6d45e0;
+        }
+        #status {
+            margin-top: 20px;
+            font-weight: bold;
+            background: #f3f3f3;
+            padding: 12px;
+            border-radius: 10px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>🎙️ AI Podcast Generator</h1>
+    <form id="book-form">
+        <input type="text" id="book-name" name="book_name" required placeholder="Enter book name...">
+        <button type="submit">Generate Podcast</button>
+    </form>
+    <div id="status"></div>
+</div>
+
+<script>
+    const form = document.getElementById('book-form');
+    const statusDiv = document.getElementById('status');
+
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const bookName = document.getElementById('book-name').value.trim();
+        if (!bookName) return;
+
+        statusDiv.style.display = 'block';
+        statusDiv.innerText = '🚀 Processing your podcast...';
+
+        try {
+            const response = await fetch("http://137.184.46.113:5678/webhook/7678431a-c1d7-45b4-88c8-d2d974d49e92", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ book_name: bookName })
+            });
+
+            if (response.ok) {
+                statusDiv.innerText = "✅ Successfully sent! Podcast generation started.";
+            } else {
+                statusDiv.innerText = "❌ Error occurred. Please try again.";
+            }
+        } catch (err) {
+            statusDiv.innerText = "❌ Could not connect to server.";
+        }
+    });
+</script>
+
+</body>
+</html>
+
+
